@@ -25,19 +25,30 @@
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
 
-        window.consulter = async () => {
-            const id = document.getElementById('searchId').value.toUpperCase();
-            const res = await get(ref(db, 'missions/' + id));
-            if (res.exists()) {
-                const d = res.val();
-                let color = d.statut === "Livré" ? "green" : (d.statut === "Erreur de paiement" ? "red" : "blue");
-                document.getElementById('resultat').innerHTML = `
-                    <div class="p-4 rounded-xl border-l-4 border-${color}-500 bg-gray-50">
-                        <p class="font-bold">Statut : <span class="text-${color}-600">${d.statut}</span></p>
-                        <p class="text-sm text-gray-500">Mise à jour : ${d.date}</p>
-                    </div>`;
-            } else { alert("Mission introuvable."); }
-        };
+      // Remplacez votre fonction 'consulter' par celle-ci
+window.consulter = async () => {
+    const csvUrl = "VOTRE_LIEN_CSV_PUBLIÉ"; // Collez ici le lien du CSV
+    const idCherche = document.getElementById('searchId').value.toUpperCase();
+    
+    const response = await fetch(csvUrl);
+    const data = await response.text();
+    const lignes = data.split('\n');
+    
+    let trouve = false;
+    lignes.forEach(ligne => {
+        const colonnes = ligne.split(','); // Supposons: ID, Statut, Date
+        if (colonnes[0].toUpperCase() === idCherche) {
+            document.getElementById('resultat').innerHTML = `
+                <div class="p-4 bg-green-50 rounded-xl border-l-4 border-green-500">
+                    <p class="font-bold">Statut : ${colonnes[1]}</p>
+                    <p class="text-sm text-gray-500">Dernière mise à jour : ${colonnes[2]}</p>
+                </div>`;
+            trouve = true;
+        }
+    });
+    
+    if (!trouve) alert("Mission non trouvée dans le tableau.");
+};
 
         window.loginAdmin = () => {
             if (prompt("Code Admin:") === ADMIN_CODE) {
