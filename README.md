@@ -27,7 +27,7 @@
 
       // Remplacez votre fonction 'consulter' par celle-ci
 window.consulter = async () => {
-    const csvUrl = "VOTRE_LIEN_CSV_PUBLIÉ"; // Collez ici le lien du CSV
+    const csvUrl = "https://docs.google.com/spreadsheets/d/1CugnnRUwLlUzlPOUbYfjcaocHHDiyhYLWsy_Fv3vPgQ/edit?usp=sharing"; // Collez ici le lien du CSV
     const idCherche = document.getElementById('searchId').value.toUpperCase();
     
     const response = await fetch(csvUrl);
