@@ -44,6 +44,9 @@
                 const data = await response.text();
                const toutesLesLignes = data.split('\n');
               const lignes = toutesLesLignes.slice(1);
+              const match = lignes.find(l => l.split(',')[0].trim().toUpperCase() === orderId);
+
+    if (match) {
                 
                 const match = lignes.find(l => l.split(',')[0].trim().toUpperCase() === orderId);
 
