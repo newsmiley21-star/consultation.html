@@ -46,7 +46,7 @@
                     const statut = c[15] ? c[15].trim().toLowerCase() : "";
                     
                     let couleur = "bg-gray-100 text-gray-600";
-                    if (statut === "valide") couleur = "bg-green-100 text-green-700";
+                    if (statut === "validé") couleur = "bg-green-100 text-green-700";
                     else if (statut === "en attente") couleur = "bg-orange-100 text-orange-700";
                     else if (statut === "erreur de paiement") couleur = "bg-red-100 text-red-700";
 
