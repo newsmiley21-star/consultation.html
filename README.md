@@ -56,7 +56,7 @@
                     divResult.innerHTML = `
                         <div class="p-6 rounded-2xl bg-yellow-50 border border-yellow-200 text-center">
                             <p class="mb-2"><strong>Nom :</strong> ${c[3] || 'N/A'}</p>
-                            <p class="mb-2"><strong>Tél :</strong> ${c[4] || 'N/A'}</p>
+                            <p class="mb-2"><strong>Tél :</strong> ${telMasque}</p>
                              <p class="mb-2"><strong>Date :</strong> ${c[1] || 'N/A'}</p>
                               <p class="mb-2"><strong>facturation :</strong> ${c[6] || 'N/A'}</p>
                             <div class="mt-4 px-4 py-2 rounded-full font-black uppercase ${couleur}">
