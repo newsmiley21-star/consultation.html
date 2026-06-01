@@ -30,7 +30,7 @@
     <script>
         async function rechercher() {
             // Remplacez par votre lien de publication CSV
-            const csvUrl = "https://docs.google.com/spreadsheets/d/1CugnnRUwLlUzlPOUbYfjcaocHHDiyhYLWsy_Fv3vPgQ/edit?usp=sharing"; 
+            const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTUjpOIQdmYrCKhsbhb2j3tqh7nuIZKh_kxwNYntWS0GLC64U5e2ydzlvJNvcERQ9TdJefUgYFupt46/pub?output=csv"; 
             const orderId = document.getElementById('orderId').value.trim().toUpperCase();
             const divResult = document.getElementById('resultat');
 
