@@ -59,7 +59,7 @@
                                 <p class="text-sm"><strong>Paiement :</strong> ${c[6] || 'N/A'}</p>
                                 <div class="bg-white p-3 rounded-lg border border-[#007fff]">
                                     <p class="text-xs text-gray-500 uppercase font-bold">Statut Actuel</p>
-                                    <p class="text-lg font-black text-[#007fff]">${c[13] || 'En cours'}</p>
+                                    <p class="text-lg font-black text-[#007fff]">${c[6] || 'En cours'}</p>
                                 </div>
                                 <p class="text-[10px] text-gray-400 text-center pt-2">Date d'enregistrement : ${c[1] || 'N/A'}</p>
                             </div>
