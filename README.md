@@ -11,7 +11,7 @@
     <div class="max-w-md mx-auto bg-white p-8 rounded-3xl shadow-xl border-t-8 border-[#007fff]">
         <h1 class="text-2xl font-bold text-center text-[#007fff] mb-6">CT241 - Suivi</h1>
         
-        <input type="text" id="orderId" placeholder="Entrez votre ID de commande" class="w-full p-4 border-2 rounded-xl mb-4">
+        <input type="text" id="Uniquecode" placeholder="Entrez votre CODE DE LIVRAISON" class="w-full p-4 border-2 rounded-xl mb-4">
         <button onclick="rechercher()" class="w-full bg-[#007fff] text-white py-4 rounded-xl font-bold hover:bg-blue-700 transition">
             Consulter
         </button>
@@ -39,11 +39,11 @@
                 // On sépare les lignes et on enlève l'entête
                 const lignes = data.split('\n').slice(1);
                 
-                const match = lignes.find(l => l.split(',')[16].trim().toUpperCase() === UNIQUE CODE);
+                const match = lignes.find(l => l.split(',')[16].trim().toUpperCase() === UNIQUECODE);
 
                 if (match) {
                     const c = match.split(',');
-                    const statut = c[6] ? c[6].trim().toLowerCase() : "";
+                    const statut = c[15] ? c[6].trim().toLowerCase() : "";
                     
                     let couleur = "bg-gray-100 text-gray-600";
                     if (statut === "valide") couleur = "bg-green-100 text-green-700";
