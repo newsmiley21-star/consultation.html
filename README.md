@@ -44,6 +44,7 @@
                 if (match) {
                     const c = match.split(',');
                     const statut = c[15] ? c[15].trim().toLowerCase() : "";
+                    let cleanStatut = rawStatut.replace("d'accord", "").trim();
                     
                     let couleur = "bg-gray-100 text-gray-600";
                     if (statut === "valide") couleur = "bg-green-100 text-green-700";
@@ -58,7 +59,7 @@
                              <p class="mb-2"><strong>Date :</strong> ${c[1] || 'N/A'}</p>
                               <p class="mb-2"><strong>facturation :</strong> ${c[6] || 'N/A'}</p>
                             <div class="mt-4 px-4 py-2 rounded-full font-black uppercase ${couleur}">
-                                ${c[15] || 'Statut inconnu'}
+                                ${cleanStatut || 'Statut inconnu'}
                             </div>
                         </div>`;
                 } else {
