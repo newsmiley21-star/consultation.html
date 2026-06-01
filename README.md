@@ -41,11 +41,12 @@
                 
                 const match = lignes.find(l => l.split(',')[16].trim().toUpperCase() === orderId);
 
-                if (match) {
-                    const c = match.split(',');
-                    const statutBrut = c[15] ? c[15].trim().toLowerCase() : "";
-                    
-                    // Logique de couleurs selon le statut
+                if (match)  
+               const match = lignes.find(l => {
+               const colonnes = l.split(',');
+    // On vérifie les colonnes 0 à 4 (A, B, C, D, E) pour voir si l'ID s'y trouve
+    return colonnes.slice(0, 17).some(col => col.trim().toUpperCase() === orderId);
+});
                     let couleur = "bg-gray-100 text-gray-600";
                     if (statutBrut === "valide") couleur = "bg-green-100 text-green-700";
                     else if (statutBrut === "en attente") couleur = "bg-orange-100 text-orange-700";
