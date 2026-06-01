@@ -44,6 +44,8 @@
                 if (match) {
                     const c = match.split(',');
                     const statut = c[15] ? c[15].trim().toLowerCase() : "";
+                    const telBrut = c[4] ? c[4].trim() : "";
+    const telMasque = (telBrut.length >= 7) ? telBrut.substring(0, 3) + "****" + telBrut.substring(7) : telBrut;
                     
                     let couleur = "bg-gray-100 text-gray-600";
                     if (statut === "validé") couleur = "bg-green-100 text-green-700";
