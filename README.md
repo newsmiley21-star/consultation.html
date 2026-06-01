@@ -45,8 +45,8 @@
                 
                 // .slice(1) ignore la ligne 1 (les titres de colonnes)
                 const lignes = data.split('\n').slice(1);
-                
-                const match = lignes.find(l => l.split(',')[0].trim().toUpperCase() === orderId);
+                // Remplacez la ligne existante par celle-ci (ajout du .replace)
+const match = lignes.find(l => l.split(',')[0].replace(/[^a-zA-Z0-9]/g, '').toUpperCase() === orderId.replace(/[^a-zA-Z0-9]/g, ''));
 
                 if (match) {
                     const c = match.split(',');
