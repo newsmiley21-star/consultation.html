@@ -33,7 +33,7 @@
 
         async function rechercher() {
             // REMPLACEZ CECI PAR VOTRE LIEN CSV PUBLIÉ
-            const csvUrl = "VOTRE_LIEN_CSV_PUBLIÉ_ICI"; 
+            const csvUrl = "https://docs.google.com/spreadsheets/d/1CugnnRUwLlUzlPOUbYfjcaocHHDiyhYLWsy_Fv3vPgQ/edit?usp=sharing"; 
             const orderId = document.getElementById('orderId').value.trim().toUpperCase();
             const divResult = document.getElementById('resultat');
 
