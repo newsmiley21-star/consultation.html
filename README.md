@@ -42,17 +42,15 @@
             try {
                 const response = await fetch(csvUrl);
                 const data = await response.text();
-               const toutesLesLignes = data.split('\n');
-              const lignes = toutesLesLignes.slice(1);
-              const match = lignes.find(l => l.split(',')[0].trim().toUpperCase() === orderId);
-
-    if (match) {
+                
+                // .slice(1) ignore la ligne 1 (les titres de colonnes)
+                const lignes = data.split('\n').slice(1);
                 
                 const match = lignes.find(l => l.split(',')[0].trim().toUpperCase() === orderId);
 
                 if (match) {
                     const c = match.split(',');
-                    // MAPPING DES COLONNES (Index 0 = Col A)
+                    // MAPPING : Colonne A=0, C=2, D=3, E=4, G=6, O=14
                     divResult.classList.remove('hidden');
                     divResult.innerHTML = `
                         <div class="p-4 rounded-xl bg-blue-50 border border-blue-100 space-y-3">
@@ -67,7 +65,7 @@
                     alert("Aucune commande trouvée pour cet ID.");
                 }
             } catch (err) {
-                alert("Erreur de connexion.");
+                alert("Erreur de connexion au serveur.");
             }
         }
     </script>
