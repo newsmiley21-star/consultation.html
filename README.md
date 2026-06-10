@@ -48,9 +48,9 @@
     const telMasque = (telBrut.length >= 7) ? telBrut.substring(0, 3) + "****" + telBrut.substring(7) : telBrut;
                     
                     let couleur = "bg-gray-100 text-gray-600";
-                    if (statut === "validé") couleur = "bg-green-100 text-green-700";
-                    else if (statut === "en attente") couleur = "bg-orange-100 text-orange-700";
-                    else if (statut === "erreur de paiement") couleur = "bg-red-100 text-red-700";
+                    if (statut === "livré") couleur = "bg-green-100 text-green-700";
+                    else if (statut === "en cours de route ") couleur = "bg-orange-100 text-orange-700";
+                    else if (statut === "en attente ") couleur = "bg-red-100 text-red-700";
 
                     divResult.classList.remove('hidden');
                     divResult.innerHTML = `
