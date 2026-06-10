@@ -58,6 +58,7 @@
                             <p class="mb-2"><strong>Nom :</strong> ${c[4] || 'N/A'}</p>
                             <p class="mb-2"><strong>Tél :</strong> ${telMasque}</p>
                              <p class="mb-2"><strong>Date :</strong> ${c[1] || 'N/A'}</p>
+                              <p class="mb-2"><strong>N° Commande  :</strong> ${c[0] || 'N/A'}</p>
                               <p class="mb-2"><strong>Colis :</strong> ${c[6] || 'N/A'}</p>
                               <p class="mb-2"><strong>livraison :</strong> ${c[10] || 'N/A'}</p>
                               <p class="mb-2"><strong>Etat :</strong> ${c[14] || 'N/A'}</p>
