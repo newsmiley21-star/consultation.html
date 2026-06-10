@@ -11,7 +11,7 @@
     <div class="max-w-md mx-auto bg-white p-8 rounded-3xl shadow-xl border-t-8 border-[#007fff]">
         <h1 class="text-2xl font-bold text-center text-[#007fff] mb-6">CT241 - Suivi</h1>
         
-        <input type="text" id="orderId" placeholder="Entrez votre ID de commande" class="w-full p-4 border-2 rounded-xl mb-4">
+        <input type="text" id="orderId" placeholder="Entrez votre CODE de commande" class="w-full p-4 border-2 rounded-xl mb-4">
         <button onclick="rechercher()" class="w-full bg-[#007fff] text-white py-4 rounded-xl font-bold hover:bg-blue-700 transition">
             Consulter
         </button>
@@ -62,7 +62,7 @@
                               <p class="mb-2"><strong>livraison :</strong> ${c[10] || 'N/A'}</p>
                               <p class="mb-2"><strong>Etat :</strong> ${c[14] || 'N/A'}</p>
                             <div class="mt-4 px-4 py-2 rounded-full font-black uppercase ${couleur}">
-                                ${c[12] || 'Statut inconnu'}
+                                ${c[15] || 'Statut inconnu'}
                             </div>
                         </div>`;
                 } else {
