@@ -203,7 +203,7 @@
             }
 
             // --- GESTION VISUELLE DU STATUT (ÉTAPES DE LIVRAISON) ---
-            const etape = parseInt(missionData.etape) || 1;
+            const etape = parseInt(missionData.etape) || 0;
             actualiserTimeline(etape, missionData.livreur);
 
             // Rendre visible la zone de résultat
