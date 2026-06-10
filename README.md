@@ -11,7 +11,7 @@
     <div class="max-w-md mx-auto bg-white p-8 rounded-3xl shadow-xl border-t-8 border-[#007fff]">
         <h1 class="text-2xl font-bold text-center text-[#007fff] mb-6">CT241 - Suivi</h1>
         
-        <input type="text" id="orderId" placeholder="Entrez votre CODE de commande" class="w-full p-4 border-2 rounded-xl mb-4">
+        <input type="text" id="orderId" placeholder="Entrez votre CODE de commande ( CCC )" class="w-full p-4 border-2 rounded-xl mb-4">
         <button onclick="rechercher()" class="w-full bg-[#007fff] text-white py-4 rounded-xl font-bold hover:bg-blue-700 transition">
             Consulter
         </button>
@@ -49,7 +49,7 @@
                     
                     let couleur = "bg-gray-100 text-gray-600";
                     if (statut === "livré") couleur = "bg-green-100 text-green-700";
-                    else if (statut === "en cours de route ") couleur = "bg-orange-100 text-orange-700";
+                    else if (statut === "en cours de route ") couleur = "bg-yellow-100 text-yellow-700";
                     else if (statut === "en attente ") couleur = "bg-red-100 text-red-700";
 
                     divResult.classList.remove('hidden');
