@@ -22,7 +22,7 @@
     <script>
         async function rechercher() {
             // Remplacez par votre lien GIST RAW ou lien CSV fonctionnel
-            const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTUjpOIQdmYrCKhsbhb2j3tqh7nuIZKh_kxwNYntWS0GLC64U5e2ydzlvJNvcERQ9TdJefUgYFupt46/pub?output=csv"; 
+            const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTKpMIZXocM4N5Rhl8n3c3noklvzqOSFSwOsQT2V-Ganqw9FX2tuuEADzTXHa-j3-ksndAY2AQyu6_P/pub?output=csv"; 
             const orderId = document.getElementById('orderId').value.trim().toUpperCase();
             const divResult = document.getElementById('resultat');
 
