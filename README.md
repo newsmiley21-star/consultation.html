@@ -39,7 +39,7 @@
                 // On sépare les lignes et on enlève l'entête
                 const lignes = data.split('\n').slice(1);
                 
-                const match = lignes.find(l => l.split(',')[0].trim().toUpperCase() === orderId);
+                const match = lignes.find(l => l.split(',')[13].trim().toUpperCase() === orderId);
 
                 if (match) {
                     const c = match.split(',');
