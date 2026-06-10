@@ -43,7 +43,7 @@
 
                 if (match) {
                     const c = match.split(',');
-                    const statut = c[12] ? c[12].trim().toLowerCase() : "";
+                    const statut = c[15] ? c[15].trim().toLowerCase() : "";
                     const telBrut = c[3] ? c[5].trim() : "";
     const telMasque = (telBrut.length >= 7) ? telBrut.substring(0, 3) + "****" + telBrut.substring(7) : telBrut;
                     
@@ -58,8 +58,9 @@
                             <p class="mb-2"><strong>Nom :</strong> ${c[4] || 'N/A'}</p>
                             <p class="mb-2"><strong>Tél :</strong> ${telMasque}</p>
                              <p class="mb-2"><strong>Date :</strong> ${c[1] || 'N/A'}</p>
-                              <p class="mb-2"><strong>type de colis :</strong> ${c[6] || 'N/A'}</p>
+                              <p class="mb-2"><strong>Colis :</strong> ${c[6] || 'N/A'}</p>
                               <p class="mb-2"><strong>livraison :</strong> ${c[10] || 'N/A'}</p>
+                              <p class="mb-2"><strong>Etat :</strong> ${c[14] || 'N/A'}</p>
                             <div class="mt-4 px-4 py-2 rounded-full font-black uppercase ${couleur}">
                                 ${c[12] || 'Statut inconnu'}
                             </div>
