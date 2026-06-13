@@ -11,11 +11,12 @@
             font-family: 'Inter', sans-serif; 
             overflow-x: hidden;
         }
-        /* Effet de flou de verre pour la carte principale */
+        /* Effet de flou de verre renforcé pour contraster avec le fond énergique */
         .glass-card {
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
         }
         canvas#bg-animation {
             position: fixed;
@@ -24,25 +25,26 @@
             width: 100%;
             height: 100%;
             z-index: -1;
-            pointer-events: none;
+            pointer-events: auto; /* Permet les interactions tactiles et souris */
         }
     </style>
 </head>
-<body class="min-h-screen flex flex-col justify-between relative bg-slate-50">
+<body class="min-h-screen flex flex-col justify-between relative bg-slate-100">
 
-    <!-- Canvas pour l'animation de réseau logistique interactif -->
+    <!-- Canvas interactif réactif aux mouvements et clics -->
     <canvas id="bg-animation"></canvas>
 
-    <!-- En-tête avec logo X-PRESS -->
-    <header class="p-4 flex justify-between items-center max-w-5xl mx-auto w-full z-10">
-        <div class="flex items-center space-x-2">
-            <img id="splash-logo" src="https://res.cloudinary.com/dyxob1wcj/image/upload/v1781134790/oeqlbzjhuvhbpmrzdpgh.jpg" alt="Logo X-PRESS" class="w-24 h-16 object-contain rounded-lg shadow-sm">
+    <!-- En-tête de la page -->
+    <header class="p-4 flex justify-between items-center max-w-5xl mx-auto w-full z-10 pointer-events-none">
+        <div class="flex items-center space-x-2 pointer-events-auto">
+            <img id="splash-logo" src="https://res.cloudinary.com/dyxob1wcj/image/upload/v1781134790/oeqlbzjhuvhbpmrzdpgh.jpg" alt="Logo X-PRESS" class="w-24 h-16 object-contain rounded-lg shadow-md">
         </div>
-        <span class="text-xs font-bold text-green-700 bg-green-100 px-3 py-1.5 rounded-full uppercase tracking-wider">Suivi en direct</span>
+        <span class="text-xs font-bold text-green-700 bg-green-100 px-3 py-1.5 rounded-full uppercase tracking-wider shadow-sm">Suivi en direct</span>
     </header>
 
+    <!-- Zone principale contenant le widget de recherche -->
     <div class="p-4 flex-grow flex items-center justify-center z-10">
-        <div class="w-full max-w-md glass-card rounded-3xl shadow-2xl border border-white/80 p-6 space-y-6 transition-all duration-300 hover:shadow-green-100/50">
+        <div class="w-full max-w-md glass-card rounded-3xl shadow-2xl p-6 space-y-6 transition-all duration-300 hover:shadow-green-200/40">
             
             <div class="text-center space-y-2">
                 <h1 class="text-2xl font-extrabold text-gray-900 tracking-tight">Suivre mon colis</h1>
@@ -53,17 +55,18 @@
                 <div class="relative">
                     <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-xl text-gray-400">#</span>
                     <input type="number" id="searchId" pattern="[0-9]*" inputmode="numeric" placeholder="Ex: 4345" 
-                           class="w-full p-4 pl-9 pr-24 border-2 border-gray-200/80 rounded-xl font-bold text-lg focus:border-green-600 focus:outline-none transition-all bg-white/70">
+                           class="w-full p-4 pl-9 pr-24 border-2 border-gray-200 rounded-xl font-bold text-lg focus:border-green-600 focus:outline-none transition-all bg-white/80">
                     <button onclick="rechercherColis()" 
-                            class="absolute right-2 top-2 bottom-2 bg-green-600 hover:bg-green-700 text-white font-bold px-4 rounded-lg text-sm transition-all duration-200 active:scale-95 shadow-md shadow-green-600/20">
+                            class="absolute right-2 top-2 bottom-2 bg-green-600 hover:bg-green-700 text-white font-bold px-4 rounded-lg text-sm transition-all duration-200 active:scale-95 shadow-md shadow-green-600/30">
                         SUIVRE
                     </button>
                 </div>
             </div>
 
-            <div id="resultZone" class="hidden space-y-6 pt-4 border-t border-gray-100/80 animate-fade-in">
+            <!-- Résultats du suivi -->
+            <div id="resultZone" class="hidden space-y-6 pt-4 border-t border-gray-100">
                 
-                <div class="bg-gray-50/80 p-4 rounded-xl border border-gray-100">
+                <div class="bg-gray-50/90 p-4 rounded-xl border border-gray-100 shadow-inner">
                     <div class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-4 text-center">État de la livraison</div>
                     
                     <div class="flex items-center justify-between relative px-4">
@@ -89,6 +92,7 @@
                     <div id="statusText" class="text-center font-extrabold text-sm text-green-700 mt-5 bg-white py-2 rounded-lg border border-green-100 shadow-sm"></div>
                 </div>
 
+                <!-- Détails textuels du colis -->
                 <div class="space-y-3">
                     <div class="flex justify-between items-center text-sm border-b pb-2">
                         <span class="text-gray-500 font-medium">Destinataire</span>
@@ -125,25 +129,34 @@
 
             </div>
 
-            <div id="statusMessage" class="hidden text-center p-4 bg-red-50 text-red-700 font-bold text-sm rounded-xl border border-red-100"></div>
+            <div id="statusMessage" class="hidden text-center p-4 bg-red-50 text-red-700 font-bold text-sm rounded-xl border border-red-100 animate-pulse"></div>
 
         </div>
     </div>
 
-    <footer class="text-center p-4 text-xs font-semibold text-gray-400 z-10">
+    <!-- Pied de page -->
+    <footer class="text-center p-4 text-xs font-semibold text-gray-400 z-10 pointer-events-none">
         &copy; 2026 X-PRESS LOGISTIQUE GABON — Tous droits réservés.
     </footer>
 
     <script>
-        // --- ANIMATION DE RÉSEAU LOGISTIQUE INTERACTIF (CANVAS) ---
         const canvas = document.getElementById('bg-animation');
         const ctx = canvas.getContext('2d');
 
         let particles = [];
-        const particleCount = 45; // Nombre optimal pour mobile et desktop
-        const connectionDistance = 120; // Distance max pour lier les nœuds
+        const particleCount = 65; // Densité augmentée pour être plus visible
+        const connectionDistance = 140; // Distance des lignes de connexion étendue
+        
+        // Souris / Toucher interactif
+        const mouse = {
+            x: null,
+            y: null,
+            radius: 160 // Zone d'influence d'évitement
+        };
 
-        // Redimensionnement fluide du canvas
+        // Système d'ondes de choc suite à un clic ou toucher
+        let shockwaves = [];
+
         function resizeCanvas() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
@@ -151,35 +164,127 @@
         window.addEventListener('resize', resizeCanvas);
         resizeCanvas();
 
-        // Classe définissant un point (un noeud/un colis virtuel)
+        // Réception des événements souris/toucher
+        window.addEventListener('mousemove', (e) => {
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
+        });
+
+        window.addEventListener('mouseleave', () => {
+            mouse.x = null;
+            mouse.y = null;
+        });
+
+        // Détection de toucher tactile sur mobile
+        window.addEventListener('touchmove', (e) => {
+            if (e.touches.length > 0) {
+                mouse.x = e.touches[0].clientX;
+                mouse.y = e.touches[0].clientY;
+            }
+        }, { passive: true });
+
+        window.addEventListener('touchend', () => {
+            mouse.x = null;
+            mouse.y = null;
+        });
+
+        // Génération d'onde de choc lors d'un clic/tap
+        function triggerShockwave(x, y) {
+            shockwaves.push({
+                x: x,
+                y: y,
+                radius: 0,
+                maxRadius: 280,
+                speed: 10,
+                alpha: 1
+            });
+        }
+
+        window.addEventListener('mousedown', (e) => {
+            triggerShockwave(e.clientX, e.clientY);
+        });
+
+        window.addEventListener('touchstart', (e) => {
+            if (e.touches.length > 0) {
+                triggerShockwave(e.touches[0].clientX, e.touches[0].clientY);
+            }
+        }, { passive: true });
+
+        // Classe définissant un point interactif et véloce
         class Particle {
             constructor() {
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height;
-                // Vitesse lente et fluide
-                this.vx = (Math.random() - 0.5) * 0.4;
-                this.vy = (Math.random() - 0.5) * 0.4;
-                this.radius = Math.random() * 2.5 + 1.5;
+                // Vitesse de base modérée
+                this.baseVx = (Math.random() - 0.5) * 0.8;
+                this.baseVy = (Math.random() - 0.5) * 0.8;
+                this.vx = this.baseVx;
+                this.vy = this.baseVy;
+                this.radius = Math.random() * 3 + 2.5; // Légèrement plus grand pour la visibilité
+                this.color = 'rgba(0, 158, 96, 0.65)'; // Vert émeraude visible
             }
 
             update() {
+                // Interaction d'évitement de la souris
+                if (mouse.x !== null && mouse.y !== null) {
+                    const dx = this.x - mouse.x;
+                    const dy = this.y - mouse.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < mouse.radius) {
+                        const force = (mouse.radius - dist) / mouse.radius;
+                        // Vecteur unitaire directionnel de fuite
+                        const forceX = (dx / dist) * force * 5;
+                        const forceY = (dy / dist) * force * 5;
+                        
+                        // Accélération vers l'extérieur
+                        this.vx += forceX;
+                        this.vy += forceY;
+                    }
+                }
+
+                // Interaction avec les ondes de choc actives
+                shockwaves.forEach(wave => {
+                    const dx = this.x - wave.x;
+                    const dy = this.y - wave.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (Math.abs(dist - wave.radius) < 25) {
+                        const pushForce = 8 * wave.alpha;
+                        this.vx += (dx / dist) * pushForce;
+                        this.vy += (dy / dist) * pushForce;
+                    }
+                });
+
+                // Friction naturelle pour stabiliser la vitesse après impulsion
+                this.vx *= 0.94;
+                this.vy *= 0.94;
+
+                // Ajout de la vitesse de dérive de base
+                this.vx += this.baseVx * 0.08;
+                this.vy += this.baseVy * 0.08;
+
+                // Mise à jour de la position
                 this.x += this.vx;
                 this.y += this.vy;
 
-                // Rebondir sur les bords
-                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
-                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+                // Rebond/Frottement souple sur les bords de l'écran
+                if (this.x < 0) { this.x = 0; this.vx *= -1; this.baseVx *= -1; }
+                if (this.x > canvas.width) { this.x = canvas.width; this.vx *= -1; this.baseVx *= -1; }
+                if (this.y < 0) { this.y = 0; this.vy *= -1; this.baseVy *= -1; }
+                if (this.y > canvas.height) { this.y = canvas.height; this.vy *= -1; this.baseVy *= -1; }
             }
 
             draw() {
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                ctx.fillStyle = 'rgba(0, 158, 96, 0.25)'; // Vert X-press transparent
+                ctx.fillStyle = this.color;
+                ctx.shadowColor = 'rgba(0, 158, 96, 0.3)';
+                ctx.shadowBlur = 8;
                 ctx.fill();
+                ctx.shadowBlur = 0; // Réinitialiser l'effet de flou
             }
         }
 
-        // Initialisation de la constellation
+        // Créer les particules de départ
         function initParticles() {
             particles = [];
             for (let i = 0; i < particleCount; i++) {
@@ -190,9 +295,25 @@
 
         // Boucle d'animation principale
         function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            // Effet de trainée douce pour un rendu cinétique premium
+            ctx.fillStyle = 'rgba(241, 245, 249, 0.45)'; // Assorti au gris clair de la page
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            // Mise à jour et dessin des liens entre points
+            // 1. Mise à jour et dessin des ondes de choc
+            shockwaves = shockwaves.filter(wave => {
+                wave.radius += wave.speed;
+                wave.alpha = 1 - (wave.radius / wave.maxRadius);
+                
+                ctx.beginPath();
+                ctx.arc(wave.x, wave.y, wave.radius, 0, Math.PI * 2);
+                ctx.strokeStyle = `rgba(0, 158, 96, ${wave.alpha * 0.45})`;
+                ctx.lineWidth = 3;
+                ctx.stroke();
+
+                return wave.radius < wave.maxRadius;
+            });
+
+            // 2. Traitement des particules et des connexions réseau
             for (let i = 0; i < particles.length; i++) {
                 particles[i].update();
                 particles[i].draw();
@@ -203,13 +324,13 @@
                     const distance = Math.sqrt(dx * dx + dy * dy);
 
                     if (distance < connectionDistance) {
-                        // Plus la distance est proche, plus le trait (la route logistique) est visible
-                        const alpha = (1 - (distance / connectionDistance)) * 0.12;
+                        // Lignes plus intenses et lumineuses
+                        const alpha = (1 - (distance / connectionDistance)) * 0.35;
                         ctx.beginPath();
                         ctx.moveTo(particles[i].x, particles[i].y);
                         ctx.lineTo(particles[j].x, particles[j].y);
                         ctx.strokeStyle = `rgba(0, 158, 96, ${alpha})`;
-                        ctx.lineWidth = 1;
+                        ctx.lineWidth = alpha * 2; // Épaisseur adaptative
                         ctx.stroke();
                     }
                 }
@@ -242,7 +363,6 @@
         // ==========================================
         // FONCTIONS DE MASQUAGE SÉCURISÉ DES NUMÉROS
         // ==========================================
-        
         function masquerTelephone(telString) {
             if (!telString) return "Inconnu";
             let clean = telString.trim().replace(/\s+/g, ''); 
@@ -281,6 +401,9 @@
                 return;
             }
 
+            // Générer une onde de choc à l'écran lors de la recherche
+            triggerShockwave(window.innerWidth / 2, window.innerHeight / 2);
+
             try {
                 const q = query(ref(db, 'missions'), orderByChild('id'), equalTo(parseInt(inputId)));
                 const snapshot = await get(q);
@@ -303,7 +426,7 @@
                 document.getElementById('trackLieu').innerText = missionData.livraison || missionData.lieu || "Non spécifié";
                 document.getElementById('trackNature').innerText = missionData.nature || "Marchandise";
                 
-                // Injection de la date
+                // Injection de la date de création de la mission
                 document.getElementById('trackDate').innerText = missionData.date || "Non renseignée";
                 document.getElementById('trackHeure').innerText = missionData.heureSeule || "En cours de traitement";
 
@@ -320,7 +443,7 @@
                 const etape = parseInt(missionData.etape) || 0;
                 actualiserTimeline(etape, missionData.livreur);
 
-                // Rendre visible la zone de résultat avec un effet d'apparition fluide
+                // Rendre visible la zone de résultat
                 resultZone.classList.remove('hidden');
 
             } catch (error) {
