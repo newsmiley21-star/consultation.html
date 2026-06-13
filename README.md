@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>X-PRESS - Suivi de Livraison</title>
     <script src="https://cdn.tailwindcss.com"></script>
-     <img id="splash-logo" src="https://res.cloudinary.com/dyxob1wcj/image/upload/v1781134790/oeqlbzjhuvhbpmrzdpgh.jpg" alt="Logo" class="absolute w-28 h-20">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Inter', sans-serif; }
@@ -13,13 +12,14 @@
         .step-line-active { background-color: #009E60; }
     </style>
 </head>
-<body class="bg-gray-50 min-height-screen flex flex-col justify-between">
+<body class="bg-gray-50 min-h-screen flex flex-col justify-between">
 
-<div class="p-4 flex-grow flex items-center justify-center">
-    <div class="w-full max-w-md bg-white rounded-2xl shadow-xl border border-gray-100 p-6 space-y-6">
+<div class="p-4 flex-grow flex items-center justify-center relative">
+    <img id="splash-logo" src="https://res.cloudinary.com/dyxob1wcj/image/upload/v1781134790/oeqlbzjhuvhbpmrzdpgh.jpg" alt="Logo" class="absolute top-4 left-4 w-28 h-20 object-contain">
+
+    <div class="w-full max-w-md bg-white rounded-2xl shadow-xl border border-gray-100 p-6 space-y-6 mt-16">
         
         <div class="text-center space-y-2">
-            </div>
             <h1 class="text-2xl font-extrabold text-gray-900 tracking-tight">Suivre mon colis</h1>
             <p class="text-sm text-gray-500">Entrez l'identifiant à 4 chiffres fourni lors de votre commande.</p>
         </div>
@@ -36,7 +36,7 @@
             </div>
         </div>
 
-        <div id="resultZone" class="hidden space-y-6 pt-4 border-t border-gray-100 animate-fade-in">
+        <div id="resultZone" class="hidden space-y-6 pt-4 border-t border-gray-100">
             
             <div class="bg-gray-50 p-4 rounded-xl border border-gray-100">
                 <div class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-4 text-center">État de la livraison</div>
@@ -86,6 +86,10 @@
                     <span id="trackNature" class="text-gray-600 text-xs italic font-semibold">-</span>
                 </div>
                 <div class="flex justify-between items-center text-sm border-b pb-2">
+                    <span class="text-gray-500 font-medium">Date d'expédition</span>
+                    <span id="trackDate" class="text-gray-900 font-bold">-</span>
+                </div>
+                <div class="flex justify-between items-center text-sm border-b pb-2">
                     <span class="text-gray-500 font-medium">Heure d'enregistrement</span>
                     <span id="trackHeure" class="text-gray-900 font-bold">-</span>
                 </div>
@@ -126,18 +130,15 @@
     // FONCTIONS DE MASQUAGE SÉCURISÉ DES NUMÉROS
     // ==========================================
     
-    // Aligne un numéro classique (ex: 062550026 -> 062****26)
     function masquerTelephone(telString) {
         if (!telString) return "Inconnu";
-        let clean = telString.trim().replace(/\s+/g, ''); // Enlever les espaces blancs
+        let clean = telString.trim().replace(/\s+/g, ''); 
         if (clean.length >= 9) {
             return clean.substring(0, 3) + "****" + clean.substring(7);
         }
-        // Sécurité générique si le format change
         return clean.substring(0, 2) + "***" + clean.substring(clean.length - 2);
     }
 
-    // Aligne la chaîne de l'expéditeur (ex: zarashop241-066457172 -> zarashop241 (066****72))
     function masquerExpediteur(expString) {
         if (!expString) return "Inconnu";
         if (expString.includes('-')) {
@@ -168,7 +169,6 @@
         }
 
         try {
-            // Requête ciblée Firebase sur le noeud "id" de la table "missions"
             const q = query(ref(db, 'missions'), orderByChild('id'), equalTo(parseInt(inputId)));
             const snapshot = await get(q);
 
@@ -178,18 +178,20 @@
                 return;
             }
 
-            // Extraction des données trouvées
             let missionData = null;
             snapshot.forEach(childSnapshot => {
                 missionData = childSnapshot.val();
             });
 
-            // --- AFICHAGE ET INJECTION SÉCURISÉE DES DONNÉES CLIENTS ---
+            // --- AFFICHAGE ET INJECTION SÉCURISÉE DES DONNÉES ---
             document.getElementById('trackNom').innerText = missionData.nom || "Client X-Press";
             document.getElementById('trackTel').innerText = masquerTelephone(missionData.tel);
             document.getElementById('trackExp').innerText = masquerExpediteur(missionData.expediteur);
             document.getElementById('trackLieu').innerText = missionData.livraison || missionData.lieu || "Non spécifié";
             document.getElementById('trackNature').innerText = missionData.nature || "Marchandise";
+            
+            // Injection de la date (s'assure que la clé 'date' existe dans Firebase)
+            document.getElementById('trackDate').innerText = missionData.date || "Non renseignée";
             document.getElementById('trackHeure').innerText = missionData.heureSeule || "En cours de traitement";
 
             // Bloc instructions particulières
@@ -201,7 +203,7 @@
                 instBlock.classList.add('hidden');
             }
 
-            // --- GESTION VISUELLE DU STATUT (ÉTAPES DE LIVRAISON) ---
+            // --- GESTION VISUELLE DU STATUT ---
             const etape = parseInt(missionData.etape) || 0;
             actualiserTimeline(etape, missionData.livreur);
 
@@ -215,7 +217,6 @@
         }
     };
 
-    // Ajuste dynamiquement la barre graphique de progression
     function actualiserTimeline(etape, nomLivreur) {
         const c1 = document.getElementById('circle-1');
         const c2 = document.getElementById('circle-2');
@@ -223,20 +224,17 @@
         const line = document.getElementById('progressLine');
         const txt = document.getElementById('statusText');
 
-        // Réinitialisation par défaut
         [c1, c2, c3].forEach(c => {
             c.className = "w-9 h-9 rounded-full bg-gray-200 flex items-center justify-center font-bold text-sm text-gray-600 transition-colors";
         });
 
         if (etape === 1) {
-            // Étape 1 : Commande en ligne / Recherche de coursier
             c1.className = "w-9 h-9 rounded-full bg-green-600 text-white flex items-center justify-center font-bold text-sm shadow-md";
             line.style.width = "0%";
             txt.innerHTML = "🕒 Commande reçue : En attente d'un livreur";
             txt.className = "text-center font-extrabold text-sm text-amber-700 mt-5 bg-amber-50 py-2 rounded-lg border border-amber-100 shadow-sm";
         } 
         else if (etape === 2 || (etape === 1 && nomLivreur && nomLivreur !== "Libre")) {
-            // Étape 2 : Le coursier a accepté la course et est en transit
             c1.className = "w-9 h-9 rounded-full bg-green-600 text-white flex items-center justify-center font-bold text-sm";
             c2.className = "w-9 h-9 rounded-full bg-green-600 text-white flex items-center justify-center font-bold text-sm shadow-md";
             line.style.width = "50%";
@@ -244,7 +242,6 @@
             txt.className = "text-center font-extrabold text-sm text-blue-700 mt-5 bg-blue-50 py-2 rounded-lg border border-blue-100 shadow-sm";
         } 
         else if (etape >= 3) {
-            // Étape 3 : Finalisé (Archivé ou validé par signature/code)
             c1.className = "w-9 h-9 rounded-full bg-green-600 text-white flex items-center justify-center font-bold text-sm";
             c2.className = "w-9 h-9 rounded-full bg-green-600 text-white flex items-center justify-center font-bold text-sm";
             c3.className = "w-9 h-9 rounded-full bg-green-700 text-white flex items-center justify-center font-bold text-sm shadow-md";
