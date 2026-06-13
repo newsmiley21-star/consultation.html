@@ -18,8 +18,7 @@
     <div class="w-full max-w-md bg-white rounded-2xl shadow-xl border border-gray-100 p-6 space-y-6">
         
         <div class="text-center space-y-2">
-            <div class="inline-flex p-3 bg-green-50 rounded-full text-green-600 text-3xl font-black">
-                📦
+            <img src="https://res.cloudinary.com/dyxob1wcj/image/upload/v1781134790/oeqlbzjhuvhbpmrzdpgh.jpg" alt="Logo CT241" class="auth-logo">
             </div>
             <h1 class="text-2xl font-extrabold text-gray-900 tracking-tight">Suivre mon colis</h1>
             <p class="text-sm text-gray-500">Entrez l'identifiant à 4 chiffres fourni lors de votre commande.</p>
