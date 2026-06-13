@@ -426,8 +426,31 @@
                 document.getElementById('trackLieu').innerText = missionData.livraison || missionData.lieu || "Non spécifié";
                 document.getElementById('trackNature').innerText = missionData.nature || "Marchandise";
                 
-                // Injection de la date de création de la mission
-                document.getElementById('trackDate').innerText = missionData.date || "Non renseignée";
+                // Gestion et formatage intelligent de la date de création de la mission (depuis dateLong ou date)
+                let dateAffichage = "Non renseignée";
+                if (missionData.dateLong) {
+                    // Si dateLong est un timestamp numérique ou convertible en nombre
+                    if (typeof missionData.dateLong === 'number' || !isNaN(missionData.dateLong)) {
+                        const dateObj = new Date(Number(missionData.dateLong));
+                        if (!isNaN(dateObj.getTime())) {
+                            dateAffichage = dateObj.toLocaleDateString('fr-FR', { 
+                                day: 'numeric', 
+                                month: 'long', 
+                                year: 'numeric' 
+                            });
+                        } else {
+                            dateAffichage = missionData.dateLong;
+                        }
+                    } else {
+                        // Si c'est déjà une chaîne pré-formatée
+                        dateAffichage = missionData.dateLong;
+                    }
+                } else if (missionData.date) {
+                    // Fallback sur l'ancien champ 'date' au cas où 'dateLong' n'est pas rempli
+                    dateAffichage = missionData.date;
+                }
+                
+                document.getElementById('trackDate').innerText = dateAffichage;
                 document.getElementById('trackHeure').innerText = missionData.heureSeule || "En cours de traitement";
 
                 // Bloc instructions particulières
