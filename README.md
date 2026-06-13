@@ -18,7 +18,7 @@
     <div class="w-full max-w-md bg-white rounded-2xl shadow-xl border border-gray-100 p-6 space-y-6">
         
         <div class="text-center space-y-2">
-            <img src="https://res.cloudinary.com/dyxob1wcj/image/upload/v1781134790/oeqlbzjhuvhbpmrzdpgh.jpg" alt="Logo CT241" class="auth-logo">
+        <img id="splash-logo" src="https://res.cloudinary.com/dyxob1wcj/image/upload/v1781134790/oeqlbzjhuvhbpmrzdpgh.jpg" alt="Logo" class="absolute w-28 h-20 rounded-[1.3rem] object-cover z-10 shadow-xl border-2 border-white">
             </div>
             <h1 class="text-2xl font-extrabold text-gray-900 tracking-tight">Suivre mon colis</h1>
             <p class="text-sm text-gray-500">Entrez l'identifiant à 4 chiffres fourni lors de votre commande.</p>
