@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>X-PRESS - Suivi de Livraison</title>
     <script src="https://cdn.tailwindcss.com"></script>
+     <img id="splash-logo" src="https://res.cloudinary.com/dyxob1wcj/image/upload/v1781134790/oeqlbzjhuvhbpmrzdpgh.jpg" alt="Logo" class="absolute w-28 h-20">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Inter', sans-serif; }
@@ -18,8 +19,6 @@
     <div class="w-full max-w-md bg-white rounded-2xl shadow-xl border border-gray-100 p-6 space-y-6">
         
         <div class="text-center space-y-2">
-        <img id="splash-logo" src="https://res.cloudinary.com/dyxob1wcj/image/upload/v1781134790/oeqlbzjhuvhbpmrzdpgh.jpg" alt="Logo" class="absolute w-28 h-20">
-            </div>
             </div>
             <h1 class="text-2xl font-extrabold text-gray-900 tracking-tight">Suivre mon colis</h1>
             <p class="text-sm text-gray-500">Entrez l'identifiant à 4 chiffres fourni lors de votre commande.</p>
